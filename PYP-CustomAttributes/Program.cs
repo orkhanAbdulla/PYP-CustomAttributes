@@ -1,13 +1,13 @@
 ﻿using PYP_CustomAttributes.Attributes;
-using PYP_CustomAttributes.Attributes.AttributeValidators;
 using PYP_CustomAttributes.Models;
 using System.Reflection;
+
 
 User user = new User()
 {
     Name = "Orkhan",
-    Email = "Orkhan@gmail.com",
-    Password = "Ork"
+    Email = "Orkhangmail.com",
+    Password = "O"
 };
 
 PropertyInfo[] props = typeof(User).GetProperties();
@@ -29,7 +29,7 @@ foreach (var prop in props)
         ValidPassword ValidPassword = attr as ValidPassword;
         if (ValidPassword!=null)
         {
-            var method = authAttr.GetType().GetMethod("IsValid", BindingFlags.Public | BindingFlags.Instance);
+            var method = ValidPassword.GetType().GetMethod("IsValid", BindingFlags.Public | BindingFlags.Instance);
             var result = (bool)method.Invoke(attr, new object[] { prop.GetValue(user) });
             if (!result)
             {
@@ -38,4 +38,5 @@ foreach (var prop in props)
         }
     }
 }
+
 
